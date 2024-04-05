@@ -3,7 +3,7 @@ const feedbacks = require("../models/UserFeedBack");
 
 
 var addfeedback = (req, res) => {
-    // console.log(req.body,"...........");
+    // console.log(req.,"...........");
     let data = new feedbacks(req.query);
     console.log(data);
     feedbacks.create(data, function (error, result, field) {

@@ -1,7 +1,7 @@
 var connection = require("../config/DB");
 
 var users = function (users) {
-  this.UID = users.UID
+  this.UID = users.UID;
   this.FName = users.FName;
   this.LName = users.LName;
   this.Gender = users.Gender;
@@ -12,8 +12,7 @@ var users = function (users) {
   this.Password = users.Password;
   this.Status = users.Status;
   this.likes = users.likes;
-  
- 
+
   // this.created_at = new Data();
 };
 
@@ -55,8 +54,21 @@ users.findByID = (id, cb) => {
   );
 };
 
+users.findByEmail = (Email, cb) => {
+  connection.query(
+    "select * from userregister where Email =?",
+    [Email],
+    function (error, result, field) {
+      if (error) {
+        cb(null.error);
+      }
+      cb(null, result);
+      console.log("users show by Email", result);
+    }
+  );
+};
 
-users.update = (data,id,cb) => {
+users.update = (data, id, cb) => {
   connection.query(
     "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=? , likes=?  where UID=?",
     [
@@ -74,17 +86,14 @@ users.update = (data,id,cb) => {
     ],
     function (error, result, field) {
       if (error) {
-        console.log("error",error);
-        cb(null.error); 
+        console.log("error", error);
+        cb(null.error);
       }
-      cb(null, {message:'updated'});
+      cb(null, { message: "updated" });
       console.log("users updated");
     }
   );
 };
-
-
-
 
 users.delete = (id, cb) => {
   connection.query(
@@ -94,7 +103,7 @@ users.delete = (id, cb) => {
       if (error) {
         cb(null.error);
       }
-      cb(null, result,{message:'Deleted'});
+      cb(null, result, { message: "Deleted" });
       console.log("users deleted ");
     }
   );

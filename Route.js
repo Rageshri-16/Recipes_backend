@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var userctrl = require("./controllers/UserRegister");
-var feedbackctrl = require("./controllers/UserFeedBack")
-var recipectrl = require("./controllers/AddRecipe")
-var likectrl = require("./controllers/like")
-var commentctrl = require("./controllers/comment")
+var feedbackctrl = require("./controllers/UserFeedBack");
+var recipectrl = require("./controllers/AddRecipe");
+var likectrl = require("./controllers/like");
+var commentctrl = require("./controllers/comment");
 var bodyparser = require("body-parser");
 
 //Add Image
@@ -24,7 +24,6 @@ var bodyparser = require("body-parser");
 // });
 // var upload = multer({storage:storage });
 
-
 // parse request of content type:-application/x-www-from-urlencoded
 var urlencoderparser = bodyparser.urlencoded({ extended: true });
 
@@ -37,37 +36,42 @@ router.use(bodyparser.json());
 
 //register route
 router.post("/add", urlencoderparser, userctrl.adduser);
+router.post("/login", userctrl.login);
 router.get("/list", userctrl.userlist);
 router.get("/info/:id", userctrl.userinfo);
 router.put("/update/:id", urlencoderparser, userctrl.userupdate);
 router.delete("/delete/:id", userctrl.userDelete);
 
 //feedback route
-router.get("/feedback/list",feedbackctrl.feedbacklist);
+router.get("/feedback/list", feedbackctrl.feedbacklist);
 router.post("/feedback/add", urlencoderparser, feedbackctrl.addfeedback);
 router.get("/feedback/:id", feedbackctrl.feedbackinfo);
-router.put("/feedback/update/:id", urlencoderparser,feedbackctrl.feedbackupdate);
+router.put(
+  "/feedback/update/:id",
+  urlencoderparser,
+  feedbackctrl.feedbackupdate
+);
 router.delete("/feedback/delete/:id", feedbackctrl.feedbackDelete);
 
 //like route
-router.get("/like/list",likectrl.likelist);
+router.get("/like/list", likectrl.likelist);
 router.post("/like/add", urlencoderparser, likectrl.addlike);
 router.get("/like/:id", likectrl.likeinfo);
-router.put("/like/update/:id", urlencoderparser,likectrl.likeupdate);
+router.put("/like/update/:id", urlencoderparser, likectrl.likeupdate);
 router.delete("/like/delete/:id", likectrl.likeDelete);
 
 //comment route
-router.get("/comment/list",commentctrl.commentlist);
+router.get("/comment/list", commentctrl.commentlist);
 router.post("/comment/add", urlencoderparser, commentctrl.addcomment);
 router.get("/comment/:id", commentctrl.commentinfo);
-router.put("/comment/update/:id", urlencoderparser,commentctrl.commentupdate);
+router.put("/comment/update/:id", urlencoderparser, commentctrl.commentupdate);
 router.delete("/comment/delete/:id", commentctrl.commentDelete);
 
 //Addrecipe route
-router.get("/recipe/list",recipectrl.recipelist);
+router.get("/recipe/list", recipectrl.recipelist);
 router.post("/recipe/add", urlencoderparser, recipectrl.addrecipe);
 router.get("/recipe/:id", recipectrl.recipeinfo);
-router.put("/recipe/update/:id", urlencoderparser,recipectrl.recipeupdate);
+router.put("/recipe/update/:id", urlencoderparser, recipectrl.recipeupdate);
 router.delete("/recipe/delete/:id", recipectrl.recipeDelete);
 // add image route
 // router.post('/profile',upload.array('profile_pic'),userctrl.userprofile)
